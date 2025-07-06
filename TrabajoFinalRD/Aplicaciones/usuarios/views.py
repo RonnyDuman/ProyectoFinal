@@ -19,3 +19,14 @@ def registro(request):
         if not correo.endswith('@gmail.com'):
             messages.error(request, 'Por favor utiliza un correo válido de Gmail.')
             return render(request, 'iniciarSesion/login.html', {'show_register': True})
+        
+        # Código de verificación...
+        verification_code = random.randint(100000, 999999)
+        
+        send_mail(
+            'Código de Verificación',
+            f'Tu código de verificación es: {verification_code}',
+            settings.DEFAULT_FROM_EMAIL,
+            [correo],
+            fail_silently=False,
+        )
