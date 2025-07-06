@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from Aplicaciones.productos.models import Producto
 from Aplicaciones.categorias.models import Categoria
+from django.shortcuts import get_object_or_404, render
+from .models import Producto
 
 # Create your views here.
 
