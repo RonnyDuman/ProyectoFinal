@@ -30,3 +30,8 @@ def registro(request):
             [correo],
             fail_silently=False,
         )
+
+        request.session['verification_code'] = verification_code
+        request.session['correo'] = correo
+        request.session['password'] = password
+        request.session['nombre'] = nombre
