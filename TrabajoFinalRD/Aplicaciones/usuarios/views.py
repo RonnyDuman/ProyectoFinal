@@ -35,3 +35,7 @@ def registro(request):
         request.session['correo'] = correo
         request.session['password'] = password
         request.session['nombre'] = nombre
+
+        messages.success(request, 'Se ha enviado un código de verificación a tu correo electrónico.')
+        return redirect('verify_email')
+    return render(request, 'iniciarSesion/login.html', {'show_register': True})
