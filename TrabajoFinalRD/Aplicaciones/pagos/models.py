@@ -1,17 +1,21 @@
 from django.db import models
-from Aplicaciones.usuarios.models import Usuario
+from Aplicaciones.pedidos.models import Pedido
 
-class Pedido(models.Model):
-    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='pedidos')
-    fecha_pedido = models.DateTimeField(auto_now_add=True)
-    total = models.DecimalField(max_digits=10, decimal_places=2)
-    estado_pedido = models.CharField(max_length=20, choices=[
+class Pago(models.Model):
+    pedido = models.OneToOneField(Pedido, on_delete=models.CASCADE, related_name='pago')
+    fecha_pago = models.DateTimeField(auto_now_add=True)
+    monto = models.DecimalField(max_digits=10, decimal_places=2)
+    metodo_pago = models.CharField(max_length=50, choices=[
+        ('tarjeta', 'Tarjeta'),
+        ('paypal', 'PayPal'),
+        ('transferencia', 'Transferencia Bancaria'),
+        ('criptomoneda', 'Criptomoneda'),
+    ])
+    estado_pago = models.CharField(max_length=20, choices=[
+        ('completado', 'Completado'),
+        ('fallido', 'Fallido'),
         ('pendiente', 'Pendiente'),
-        ('enviado', 'Enviado'),
-        ('entregado', 'Entregado'),
-        ('cancelado', 'Cancelado'),
-    ], default='pendiente')
-    direccion_envio = models.TextField()
+    ])
 
     def __str__(self):
-        return f'Pedido #{self.id} - {self.usuario.nombre}'
+        return f'Pago de Pedido #{self.pedido.id} - {self.estado_pago}'
