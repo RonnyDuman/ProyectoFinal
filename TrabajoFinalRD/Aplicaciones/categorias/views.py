@@ -65,3 +65,14 @@ def categoria_detail(request, id):
 
     else:
         return HttpResponseNotAllowed(['GET', 'PUT', 'DELETE'])
+    
+
+@require_http_methods(["DELETE"])
+def categoria_eliminar(request, categoria_id):
+    categoria = get_object_or_404(Categoria, id=categoria_id)
+
+    try:
+        categoria.delete()
+        return JsonResponse({'success': True})
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': 'No se puede eliminar: categoría usada en productos.'}, status=400)
