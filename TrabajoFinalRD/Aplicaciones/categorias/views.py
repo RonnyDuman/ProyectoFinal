@@ -10,3 +10,8 @@ from django.views.decorators.http import require_http_methods
 from Aplicaciones.categorias.models import Categoria
 
 # Create your views here.
+@csrf_exempt 
+def categoria_list_create(request):
+    if request.method == 'GET':
+        categorias = list(Categoria.objects.values('id', 'nombre'))
+        return JsonResponse(categorias, safe=False)
