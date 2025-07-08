@@ -15,3 +15,8 @@ def categoria_list_create(request):
     if request.method == 'GET':
         categorias = list(Categoria.objects.values('id', 'nombre'))
         return JsonResponse(categorias, safe=False)
+    
+    elif request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            nombre = data.get('nombre')
