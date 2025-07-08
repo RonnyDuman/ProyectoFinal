@@ -20,3 +20,22 @@ def categoria_list_create(request):
         try:
             data = json.loads(request.body)
             nombre = data.get('nombre')
+            if not nombre:
+                return JsonResponse({'error': 'El campo nombre es obligatorio.'}, status=400)
+            categoria = Categoria.objects.create(nombre=nombre)
+            return JsonResponse({'id': categoria.id, 'nombre': categoria.nombre}, status=201)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
+
+    else:
+        return HttpResponseNotAllowed(['GET', 'POST'])
+
+
+
+
+@csrf_exempt
+def categoria_detail(request, id):
+    try:
+        categoria = Categoria.objects.get(id=id)
+    except Categoria.DoesNotExist:
+        return JsonResponse({'error': 'Categoría no encontrada'}, status=404)
