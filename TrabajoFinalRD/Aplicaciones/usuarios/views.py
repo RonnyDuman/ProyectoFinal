@@ -7,6 +7,11 @@ import uuid
 from django.contrib import messages
 from django.contrib.auth.hashers import make_password, check_password
 import random
+from django.shortcuts import render
+from Aplicaciones.pagos.models import Pago
+from Aplicaciones.pedidos.models import Pedido
+from django.http import JsonResponse
+from Aplicaciones.pedidoproductos.models import PedidoProducto
 
 # Create your views here.
 def registro(request):
