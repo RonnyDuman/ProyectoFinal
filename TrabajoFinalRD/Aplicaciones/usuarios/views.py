@@ -44,3 +44,14 @@ def registro(request):
         messages.success(request, 'Se ha enviado un código de verificación a tu correo electrónico.')
         return redirect('verify_email')
     return render(request, 'iniciarSesion/login.html', {'show_register': True})
+
+def perfil_usuario(request):
+    usuario_id = request.session.get('usuario_id')
+    if not usuario_id:
+        return redirect('login')
+
+    pagos = Pago.objects.filter(pedido__usuario_id=usuario_id).select_related('pedido')
+
+    return render(request, 'usuarios/perfil.html', {
+        'pagos': pagos,
+    })
