@@ -39,3 +39,4 @@ def categoria_detail(request, id):
         categoria = Categoria.objects.get(id=id)
     except Categoria.DoesNotExist:
         return JsonResponse({'error': 'Categoría no encontrada'}, status=404)
+    
