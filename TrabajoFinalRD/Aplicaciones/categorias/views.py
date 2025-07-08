@@ -39,4 +39,18 @@ def categoria_detail(request, id):
         categoria = Categoria.objects.get(id=id)
     except Categoria.DoesNotExist:
         return JsonResponse({'error': 'Categoría no encontrada'}, status=404)
+    if request.method == 'GET':
+        return JsonResponse({'id': categoria.id, 'nombre': categoria.nombre})
     
+    elif request.method == 'PUT':
+        try:
+            data = json.loads(request.body.decode('utf-8'))
+            nombre = data.get('nombre')
+            if not nombre:
+                return JsonResponse({'error': 'El campo nombre es obligatorio.'}, status=400)
+            
+            categoria.nombre = nombre
+            categoria.save()
+            return JsonResponse({'id': categoria.id, 'nombre': categoria.nombre})
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
