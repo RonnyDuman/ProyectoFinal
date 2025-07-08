@@ -59,3 +59,18 @@ def perfil_usuario(request):
 def detalle_pedido_ajax(request, pedido_id):
     usuario_id = request.session.get('usuario_id')
     print("Usuario en sesión:", request.session.get('usuario_id'))
+
+    try:
+        pedido = Pedido.objects.get(id=pedido_id, usuario_id=usuario_id)
+        detalles = PedidoProducto.objects.filter(pedido=pedido).select_related('producto')
+
+        productos = [{
+            'nombre': d.producto.nombre,
+            'precio_unitario': float(d.precio_unitario),
+            'imagen': d.producto.imagen.url if d.producto.imagen else 'https://via.placeholder.com/80x80?text=Sin+imagen'
+        } for d in detalles]
+
+        return JsonResponse({'status': 'ok', 'productos': productos})
+
+    except Pedido.DoesNotExist:
+        return JsonResponse({'status': 'error', 'error': 'Pedido no encontrado'}, status=404)
