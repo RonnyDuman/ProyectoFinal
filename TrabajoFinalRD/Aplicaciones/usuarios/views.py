@@ -55,3 +55,7 @@ def perfil_usuario(request):
     return render(request, 'usuarios/perfil.html', {
         'pagos': pagos,
     })
+
+def detalle_pedido_ajax(request, pedido_id):
+    usuario_id = request.session.get('usuario_id')
+    print("Usuario en sesión:", request.session.get('usuario_id'))
