@@ -39,6 +39,7 @@ def categoria_detail(request, id):
         categoria = Categoria.objects.get(id=id)
     except Categoria.DoesNotExist:
         return JsonResponse({'error': 'Categoría no encontrada'}, status=404)
+    
     if request.method == 'GET':
         return JsonResponse({'id': categoria.id, 'nombre': categoria.nombre})
     
@@ -54,3 +55,13 @@ def categoria_detail(request, id):
             return JsonResponse({'id': categoria.id, 'nombre': categoria.nombre})
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=400)
+        
+    elif request.method == 'DELETE':
+        try:
+            categoria.delete()
+            return JsonResponse({'message': 'Categoría eliminada correctamente'})
+        except ProtectedError:
+            return JsonResponse({'error': 'No se puede eliminar la categoría porque tiene productos asociados'}, status=400)
+
+    else:
+        return HttpResponseNotAllowed(['GET', 'PUT', 'DELETE'])
