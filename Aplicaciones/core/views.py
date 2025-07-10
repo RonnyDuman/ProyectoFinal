@@ -145,3 +145,14 @@ def registro(request):
         return redirect('verify_email')
 
     return render(request, 'usuarios/login.html', {'show_register': True})
+
+
+def verify_email(request):
+    if request.method == 'POST':
+        verification_code = request.POST.get('verification_code')
+        if verification_code == str(request.session.get('verification_code')):
+            email = request.session.get('email')
+            contraseña = request.session.get('contraseña')
+            nombre = request.session.get('nombre')
+            telefono = request.session.get('telefono')
+            direccion = request.session.get('direccion')
