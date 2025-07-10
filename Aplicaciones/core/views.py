@@ -117,3 +117,31 @@ def registro(request):
         contraseña = request.POST.get('contraseña')
         telefono = request.POST.get('telefono')
         direccion = request.POST.get('direccion')
+
+        
+        if not email.endswith('@gmail.com'):
+            messages.error(request, 'Solo se permiten correos @gmail.com')
+            return render(request, 'usuarios/login.html', {'show_register': True})
+
+        verification_code = random.randint(100000, 999999)
+
+        send_mail(
+            'Código de Verificación',
+            f'Tu código de verificación es: {verification_code}',
+            settings.DEFAULT_FROM_EMAIL,
+            [email],
+            fail_silently=False,
+        )
+
+        # Guardar todos los datos en sesión para usarlos luego
+        request.session['verification_code'] = verification_code
+        request.session['email'] = email
+        request.session['contraseña'] = contraseña
+        request.session['nombre'] = nombre
+        request.session['telefono'] = telefono
+        request.session['direccion'] = direccion
+
+        messages.success(request, 'Se ha enviado un código de verificación a tu correo electrónico.')
+        return redirect('verify_email')
+
+    return render(request, 'usuarios/login.html', {'show_register': True})
