@@ -109,3 +109,11 @@ def sesionInicada(request):
         messages.error(request, 'Correo no registrado')
 
     return redirect('login')
+
+def registro(request):
+    if request.method == 'POST':
+        nombre = request.POST.get('nombre')
+        email = request.POST.get('email')
+        contraseña = request.POST.get('contraseña')
+        telefono = request.POST.get('telefono')
+        direccion = request.POST.get('direccion')
