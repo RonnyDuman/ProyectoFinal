@@ -178,3 +178,18 @@ def IniciarSesion(request):
     if request.method == 'POST':
         correo = request.POST['correoUsuario']  
         clave = request.POST['passwordUsuario']
+        if correo == 'admin1234' and clave == '1234admin':
+            print("comprobando si entro a este bloque")
+            request.session['admin_token'] = True
+            return redirect('admin_inicio')
+
+        try:
+            usuario = Usuario.objects.get(email=correo, contraseña=clave)
+            print(usuario)
+            print("clave ", clave)
+            request.session['usuario_id'] = usuario.id
+            return redirect('realizar_compra')
+        except Usuario.DoesNotExist:
+            messages.error(request, "Correo o contraseña incorrectos.")
+
+    return render(request, 'usuarios/login.html')
