@@ -156,3 +156,20 @@ def verify_email(request):
             nombre = request.session.get('nombre')
             telefono = request.session.get('telefono')
             direccion = request.session.get('direccion')
+            
+            if not Usuario.objects.filter(email=email).exists():
+                usuario = Usuario(
+                    nombre=nombre,
+                    email=email,
+                    contraseña=make_password(contraseña),
+                    telefono=telefono,
+                    direccion=direccion
+                )
+                usuario.save()
+                messages.success(request, 'Registro exitoso. Ahora puedes iniciar sesión.')
+            else:
+                messages.info(request, 'El usuario ya existe. Inicia sesión.')
+            return redirect('login')
+        else:
+            messages.error(request, 'Código de verificación incorrecto. Intenta de nuevo.')
+    return render(request, 'usuarios/verify.html')
