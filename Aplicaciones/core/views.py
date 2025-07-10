@@ -62,3 +62,19 @@ def productos_con_descuento(request):
         'descuentos': descuentos_dict,
         'total_items': total_items,
     })
+
+
+def todos_productos(request):
+    productos = Producto.objects.all()
+    descuentos = {d.producto_id: d for d in Descuento.objects.all()}
+
+    carrito = request.session.get('carrito', {})
+    total_items = sum(item['cantidad'] for item in carrito.values())
+
+    return render(request, 'Inicio/todos.html', {
+        'productos': productos,
+        'descuentos': descuentos,
+        'total_items': total_items,
+        'mostrar_carousel': False,  
+    })
+
