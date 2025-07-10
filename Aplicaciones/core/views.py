@@ -32,3 +32,18 @@ def General(request):
         'descuentos': descuentos,
         'total_items': total_items,
     })
+
+def productos_por_categoria(request, categoria_id):
+    categoria = get_object_or_404(Categoria, id=categoria_id)
+    productos = Producto.objects.filter(categoria=categoria)
+    descuentos = {d.producto_id: d for d in Descuento.objects.all()}
+
+    carrito = request.session.get('carrito', {})
+    total_items = sum(item['cantidad'] for item in carrito.values())
+
+    return render(request, 'Inicio/categoria.html', {
+        'categoria': categoria,
+        'productos': productos,
+        'descuentos': descuentos,
+        'total_items': total_items,
+    })
