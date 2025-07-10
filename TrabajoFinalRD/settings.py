@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'Aplicaciones.pagos',
     'Aplicaciones.reseñas',
     'Aplicaciones.pedidoproductos'
+    'Aplicaciones.core'
 
 
 
