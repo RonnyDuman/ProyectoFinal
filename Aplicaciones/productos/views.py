@@ -1,8 +1,13 @@
-from django.shortcuts import render, redirect
 from Aplicaciones.productos.models import Producto
 from Aplicaciones.categorias.models import Categoria
-from django.shortcuts import get_object_or_404, render
-from .models import Producto
+import os
+from django.conf import settings
+from django.db.models import ProtectedError
+from django.contrib import messages
+from Aplicaciones.productos.models import Producto
+from django.shortcuts import render, get_object_or_404, redirect
+from Aplicaciones.core.decorators import admin_required
+from Aplicaciones.descuentos.models import Descuento
 
 # Create your views here.
 
@@ -34,4 +39,8 @@ def nuevo_producto(request):
 def detalle_producto(request, producto_id):
     producto = get_object_or_404(Producto, id=producto_id)
     reseñas = producto.reseñas.select_related('usuario').order_by('-fecha')
+
+        # Obtener descuento si existe
+    descuento_obj = Descuento.objects.filter(producto=producto).first()
+    descuentos = {producto.id: descuento_obj} if descuento_obj else {}
 
