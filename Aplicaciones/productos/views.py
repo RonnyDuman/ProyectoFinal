@@ -56,3 +56,7 @@ def detalle_producto(request, producto_id):
         'rango_estrellas': range(1, 6),
     })
 
+@admin_required
+def detalle_productoEd(request, producto_id):
+    producto = get_object_or_404(Producto, id=producto_id)
+
