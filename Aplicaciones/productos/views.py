@@ -72,4 +72,10 @@ def detalle_productoEd(request, producto_id):
             if producto.imagen and os.path.isfile(producto.imagen.path):
                 os.remove(producto.imagen.path)
 
+            # Asignar la nueva imagen
+            producto.imagen = request.FILES['imagen']
+
+        producto.save()
+        return redirect('admin_productos')
+
 
