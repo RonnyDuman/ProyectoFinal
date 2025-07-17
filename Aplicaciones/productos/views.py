@@ -30,3 +30,8 @@ def nuevo_producto(request):
 
     return render(request, 'productos/nuevo.html', {'categorias': categorias})
 
+
+def detalle_producto(request, producto_id):
+    producto = get_object_or_404(Producto, id=producto_id)
+    reseñas = producto.reseñas.select_related('usuario').order_by('-fecha')
+
