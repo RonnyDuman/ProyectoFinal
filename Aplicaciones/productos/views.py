@@ -77,5 +77,11 @@ def detalle_productoEd(request, producto_id):
 
         producto.save()
         return redirect('admin_productos')
+    
+    categorias = Categoria.objects.all()
+    return render(request, 'productos/edicion.html', {
+        'producto': producto,
+        'categorias': categorias
+    })
 
 
