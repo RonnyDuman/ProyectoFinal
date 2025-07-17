@@ -101,4 +101,12 @@ def eliminar_producto(request, producto_id):
         if ruta_imagen and os.path.isfile(ruta_imagen):
             os.remove(ruta_imagen)
 
+        messages.success(request, "Producto eliminado correctamente.")
+    except ProtectedError:
+        messages.error(request, "❌ No se puede eliminar este producto porque está relacionado con otros registros (carritos, pedidos, etc.).")
+    except Exception as e:
+        messages.error(request, f"⚠️ Error al eliminar la imagen: {e}")
+
+    return redirect('admin_productos')
+
 
