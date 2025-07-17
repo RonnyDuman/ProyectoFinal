@@ -44,3 +44,7 @@ def detalle_producto(request, producto_id):
     descuento_obj = Descuento.objects.filter(producto=producto).first()
     descuentos = {producto.id: descuento_obj} if descuento_obj else {}
 
+     # Obtener el carrito
+    carrito = request.session.get('carrito', {})
+    producto_en_carrito = str(producto.id) in carrito  # ← True si ya está agregado
+
