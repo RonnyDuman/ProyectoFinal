@@ -67,4 +67,9 @@ def detalle_productoEd(request, producto_id):
         producto.stock = request.POST['stock']
         producto.categoria_id = request.POST['categoria']
 
+        if 'imagen' in request.FILES:
+            # Eliminar la imagen anterior si existe
+            if producto.imagen and os.path.isfile(producto.imagen.path):
+                os.remove(producto.imagen.path)
+
 
