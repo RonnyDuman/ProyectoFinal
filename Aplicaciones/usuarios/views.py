@@ -131,6 +131,15 @@ def verify_email(request):
             nombre = request.session.get('nombre')
             telefono = request.session.get('telefono')
             direccion = request.session.get('direccion')
+            
+            if not Usuario.objects.filter(email=email).exists():
+                usuario = Usuario(
+                    nombre=nombre,
+                    email=email,
+                    contraseña=make_password(contraseña),
+                    telefono=telefono,
+                    direccion=direccion
+                )
     
 
 
