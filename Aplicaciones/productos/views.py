@@ -97,4 +97,8 @@ def eliminar_producto(request, producto_id):
 
         producto.delete()
 
+         # Si la eliminación fue exitosa, borrar también la imagen del sistema
+        if ruta_imagen and os.path.isfile(ruta_imagen):
+            os.remove(ruta_imagen)
+
 
