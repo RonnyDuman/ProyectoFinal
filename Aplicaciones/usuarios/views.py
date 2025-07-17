@@ -84,6 +84,11 @@ def sesionInicada(request):
     if correo == 'admin1234' and password == '1234admin':
         request.session['admin_token'] = True
         return redirect('admin_inicio')
+    try:
+       
+
+    
+
 
 def registro(request):
     if request.method == 'POST':
