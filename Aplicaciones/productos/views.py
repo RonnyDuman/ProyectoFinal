@@ -60,3 +60,11 @@ def detalle_producto(request, producto_id):
 def detalle_productoEd(request, producto_id):
     producto = get_object_or_404(Producto, id=producto_id)
 
+    if request.method == 'POST':
+        producto.nombre = request.POST['nombre']
+        producto.descripcion = request.POST['descripcion']
+        producto.precio = request.POST['precio']
+        producto.stock = request.POST['stock']
+        producto.categoria_id = request.POST['categoria']
+
+
