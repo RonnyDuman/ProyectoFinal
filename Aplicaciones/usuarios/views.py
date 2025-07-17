@@ -84,7 +84,43 @@ def sesionInicada(request):
     if correo == 'admin1234' and password == '1234admin':
         request.session['admin_token'] = True
         return redirect('admin_inicio')
+
     try:
+        usuario = Usuario.objects.get(email=correo)
+        if check_password(password, usuario.contraseña):
+            request.session['usuario_id'] = usuario.id
+
+            carrito_sesion = request.session.get('carrito', {})
+            carrito_db, created = Carrito.objects.get_or_create(usuario=usuario, estado='activo')
+
+            for prod_id, item in carrito_sesion.items():
+                producto = Producto.objects.get(id=prod_id)
+
+                precio_final = Decimal(item.get('precio_descuento', item['precio']))
+
+                item_db, creado = CarritoProducto.objects.get_or_create(
+                    carrito=carrito_db,
+                    producto=producto,
+                    defaults={
+                        'cantidad': item['cantidad'],
+                        'precio_unitario': precio_final
+                    }
+                )
+                if not creado:
+                    item_db.cantidad += item['cantidad']
+                    item_db.save()
+
+            request.session['carrito'] = {}
+
+            return redirect('General')
+
+        else:
+            messages.error(request, 'Contraseña incorrecta')
+
+    except Usuario.DoesNotExist:
+        messages.error(request, 'Correo no registrado')
+
+    return redirect('login')
        
 
     
