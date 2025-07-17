@@ -46,5 +46,13 @@ def detalle_producto(request, producto_id):
 
      # Obtener el carrito
     carrito = request.session.get('carrito', {})
-    producto_en_carrito = str(producto.id) in carrito  # ← True si ya está agregado
+    producto_en_carrito = str(producto.id) in carrito  # True si ya está agregado
+
+    return render(request, 'productos/detalle.html', {
+        'producto': producto,
+        'descuentos': descuentos,
+        'producto_en_carrito': producto_en_carrito,
+        'reseñas': reseñas,
+        'rango_estrellas': range(1, 6),
+    })
 
