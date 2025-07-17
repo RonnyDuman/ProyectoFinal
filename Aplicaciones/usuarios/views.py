@@ -19,6 +19,22 @@ from Aplicaciones.descuentos.models import Descuento
 from Aplicaciones.core.decorators import admin_required
 
 # Create your views here.
+
+def General(request):
+    productos = Producto.objects.all()
+    descuentos = {d.producto_id: d for d in Descuento.objects.all()} 
+
+    carrito = request.session.get('carrito', {})
+    total_items = sum(item['cantidad'] for item in carrito.values())
+
+    return render(request, 'Inicio/inicio.html', {
+        'productos': productos,
+        'descuentos': descuentos,
+        'total_items': total_items,
+    })
+
+
+
 def registro(request):
     if request.method == 'POST':
         nombre = request.POST.get('nombreUsuario')
