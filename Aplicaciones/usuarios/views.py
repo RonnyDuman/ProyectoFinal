@@ -48,6 +48,21 @@ def productos_por_categoria(request, categoria_id):
         'total_items': total_items,
     })
 
+def productos_con_descuento(request):
+    descuentos = Descuento.objects.select_related('producto').all()
+    productos = [d.producto for d in descuentos]
+
+    descuentos_dict = {d.producto_id: d for d in descuentos}
+
+    carrito = request.session.get('carrito', {})
+    total_items = sum(item['cantidad'] for item in carrito.values())
+
+    return render(request, 'Inicio/descuentos.html', {
+        'productos': productos,
+        'descuentos': descuentos_dict,
+        'total_items': total_items,
+    })
+
 
 def registro(request):
     if request.method == 'POST':
