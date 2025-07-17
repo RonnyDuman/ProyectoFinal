@@ -84,4 +84,8 @@ def detalle_productoEd(request, producto_id):
         'categorias': categorias
     })
 
+@admin_required
+def eliminar_producto(request, producto_id):
+    producto = get_object_or_404(Producto, id=producto_id)
+
 
