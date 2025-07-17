@@ -148,6 +148,12 @@ def verify_email(request):
         else:
             messages.error(request, 'Código de verificación incorrecto. Intenta de nuevo.')
     return render(request, 'usuarios/verify.html')
+
+
+def IniciarSesion(request):
+      if request.method == 'POST':
+        correo = request.POST['correoUsuario']  
+        clave = request.POST['passwordUsuario']
     
 
 
