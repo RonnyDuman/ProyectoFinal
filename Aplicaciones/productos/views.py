@@ -88,4 +88,13 @@ def detalle_productoEd(request, producto_id):
 def eliminar_producto(request, producto_id):
     producto = get_object_or_404(Producto, id=producto_id)
 
+    try:
+        # Guardar la ruta absoluta de la imagen antes de eliminar el producto
+        if producto.imagen:
+            ruta_imagen = os.path.join(settings.MEDIA_ROOT, str(producto.imagen.path))
+        else:
+            ruta_imagen = None
+
+        producto.delete()
+
 
