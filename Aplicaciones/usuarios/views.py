@@ -140,6 +140,14 @@ def verify_email(request):
                     telefono=telefono,
                     direccion=direccion
                 )
+                usuario.save()
+                messages.success(request, 'Registro exitoso. Ahora puedes iniciar sesión.')
+            else:
+                messages.info(request, 'El usuario ya existe. Inicia sesión.')
+            return redirect('login')
+        else:
+            messages.error(request, 'Código de verificación incorrecto. Intenta de nuevo.')
+    return render(request, 'usuarios/verify.html')
     
 
 
