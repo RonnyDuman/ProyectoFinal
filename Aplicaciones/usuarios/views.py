@@ -77,6 +77,13 @@ def todos_productos(request):
         'mostrar_carousel': False,  
     })
 
+def sesionInicada(request):
+    correo = request.POST.get('correoUsuario')
+    password = request.POST.get('passwordUsuario')
+
+    if correo == 'admin1234' and password == '1234admin':
+        request.session['admin_token'] = True
+        return redirect('admin_inicio')
 
 def registro(request):
     if request.method == 'POST':
