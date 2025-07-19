@@ -84,3 +84,16 @@ def capture_order(request):
                 estado_pedido='pendiente',
                 direccion_envio=carrito.usuario.direccion or 'Dirección no registrada'
             )
+
+             # Agregar productos al pedido y actualizar stock
+            for item in productos_en_carrito:
+                producto = item.producto
+                producto.stock = max(producto.stock - item.cantidad, 0)
+                producto.save()
+
+                PedidoProducto.objects.create(
+                    pedido=pedido,
+                    producto=producto,
+                    cantidad=item.cantidad,
+                    precio_unitario=item.precio_unitario
+                )
