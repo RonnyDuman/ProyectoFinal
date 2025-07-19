@@ -15,3 +15,20 @@ def pago_paypal_simulado(request, pedido_id):
     #Busca el Pedido con ese ID y que pertenezca al usuario actual.
     pedido = Pedido.objects.get(id=pedido_id, usuario=request.user)
     pago = pedido.pago
+
+    if request.method == 'POST':
+        pago.estado_pago = 'completado'
+        pago.fecha_pago = timezone.now()
+        pago.save()
+
+        pedido.estado_pedido = 'enviado'  # o pendiente de envío
+        pedido.save()
+
+     #Cambia el estado del pago a "completado" y registra la fecha actual.
+    if request.method == 'POST':
+        pago.estado_pago = 'completado'
+        pago.fecha_pago = timezone.now()
+        pago.save()
+
+        pedido.estado_pedido = 'enviado'  # o pendiente de envío
+        pedido.save()
