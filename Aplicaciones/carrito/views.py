@@ -156,3 +156,6 @@ def eliminar_del_carrito_db(request, item_id):
     item = get_object_or_404(CarritoProducto, id=item_id)
     item.delete()
     return redirect('detalle_carrito')
+
+#Creamos la funcion
+def vaciar_carrito(request):
