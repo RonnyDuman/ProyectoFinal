@@ -74,9 +74,15 @@ def agregar_al_carrito(request, id):
 
 #Creamos la función
 def detalle_carrito(request):
-    #Obtemos los datos del carrito
+    #Obtenemos los datos del carrito
     usuario_id = request.session.get('usuario_id')
     carrito_db = None
     items_db = None
     carrito_sesion = request.session.get('carrito', {})
+
+    #Si el usuario esta logeado busca un carrito activo de la BDD y obtiene todos los datos
+    if usuario_id:
+        carrito_db = Carrito.objects.filter(usuario_id=usuario_id, estado='activo').first()
+        if carrito_db:
+            items_db = carrito_db.productos_en_carrito.select_related('producto')
 
