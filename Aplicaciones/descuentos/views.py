@@ -49,6 +49,12 @@ def nuevo_descuento(request):
 
     return render(request, 'descuentos/nuevo.html', {'productos': productos})
 
+#Creamos la nueva funcion
 def editar_descuento(request, descuento_id):
     descuento = get_object_or_404(Descuento, id=descuento_id)
 
+    #obtenemos los nuevos datos del formulario
+    if request.method == 'POST':
+        porcentaje = request.POST.get('porcentaje_descuento')
+        fecha_inicio = request.POST.get('fecha_inicio')
+        fecha_fin = request.POST.get('fecha_fin')
