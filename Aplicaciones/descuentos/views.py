@@ -64,3 +64,7 @@ def editar_descuento(request, descuento_id):
         descuento.fecha_inicio = fecha_inicio
         descuento.fecha_fin = fecha_fin
         descuento.save()
+
+        #Agregamos mensajes de confirmacion
+        messages.success(request, 'Descuento actualizado correctamente')
+        return redirect('admin_descuentos')
