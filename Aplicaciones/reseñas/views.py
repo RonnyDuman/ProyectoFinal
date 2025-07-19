@@ -19,3 +19,15 @@ def agregar_reseña(request, producto_id):
         producto = get_object_or_404(Producto, id=producto_id)
         calificacion = int(request.POST.get('calificacion'))
         comentario = request.POST.get('comentario', '').strip()
+
+        # Guardar o actualizar reseña (opcional: 1 reseña por usuario por producto)
+        reseña, created = Reseña.objects.update_or_create(
+            usuario=usuario,
+            producto=producto,
+            defaults={'calificacion': calificacion, 'comentario': comentario}
+        )
+
+        messages.success(request, "Gracias por tu reseña.")
+        return redirect('detalle_producto', producto_id=producto_id)
+
+    return redirect('detalle_producto', producto_id=producto_id)
