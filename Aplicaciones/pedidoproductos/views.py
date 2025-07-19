@@ -30,5 +30,10 @@ def realizar_compra(request):
      # Traer usuario desde sesión del manual
     usuario = Usuario.objects.get(id=usuario_id)
 
-    # Luego continua igual
+    # Luego continua igual y busca el carrito de la BDD
     carrito_db = Carrito.objects.filter(usuario=usuario, estado='activo').first()
+
+    print(carrito_db)
+    if carrito_db:
+        # Obtener los productos y cantidades del carrito en BD
+        items = carrito_db.productos_en_carrito.select_related('producto').all()
