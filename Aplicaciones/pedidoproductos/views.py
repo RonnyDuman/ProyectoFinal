@@ -50,3 +50,6 @@ def realizar_compra(request):
         else:
         # Si no hay carrito en BD, intentar obtener de sesión
             carrito = request.session.get('carrito', {})
+        if not carrito:
+              # Si sigue vacío, redirigir al detalle carrito o página principal
+             return redirect('detalle_carrito')
