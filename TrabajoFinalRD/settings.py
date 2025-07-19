@@ -37,22 +37,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'Aplicaciones.usuarios',
+    'Aplicaciones.usuarios',#..
     'Aplicaciones.categorias',
-    'Aplicaciones.productos',
-    'Aplicaciones.carrito',
-    'Aplicaciones.carritoproductos',
-    'Aplicaciones.descuentos',
+    'Aplicaciones.productos',#..
+    'Aplicaciones.carrito',#...
+    'Aplicaciones.carritoproductos',#..
+    'Aplicaciones.descuentos',#..
     'Aplicaciones.pedidos',
     'Aplicaciones.pagos',
     'Aplicaciones.reseñas',
     'Aplicaciones.pedidoproductos'
     'Aplicaciones.core'
-
-
-
-    
-    
 
 
 ]
@@ -79,6 +74,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'Aplicaciones.carrito.context_processors.carrito_context',
+                'Aplicaciones.carrito.context_processors.carrito_total_items',
             ],
         },
     },
