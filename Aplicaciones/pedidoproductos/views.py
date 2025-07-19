@@ -53,3 +53,14 @@ def realizar_compra(request):
         if not carrito:
               # Si sigue vacío, redirigir al detalle carrito o página principal
              return redirect('detalle_carrito')
+        
+            # Calcular subtotal y total
+    subtotal = sum(item['precio_descuento'] * item['cantidad'] for item in carrito.values())
+
+    context = {
+        'carrito': carrito,
+        'subtotal': subtotal,
+        'total': subtotal,
+    }
+
+    return render(request, 'pedidos/realizar.html', context)
