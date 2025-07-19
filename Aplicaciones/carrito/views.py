@@ -63,4 +63,8 @@ def agregar_al_carrito(request, id):
                 'cantidad': 1,
                 'imagen': producto.imagen.url if producto.imagen else '',
             }
+        #Si ya está en el carrito, suma 1 cantidad, si no está, lo agrega con todos los datos.
+        carrito[prod_id]['total'] = round(
+            carrito[prod_id]['precio_descuento'] * carrito[prod_id]['cantidad'], 2
+        )
 
