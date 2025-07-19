@@ -110,3 +110,8 @@ def realizar_compra_ejecutar(request):
         # 4. Vaciar carrito
         del request.session['carrito']
         request.session.modified = True
+
+           # 5. Redirigir a "simular pago"
+        return redirect('pago_paypal_simulado', pedido_id=pedido.id)
+
+    return render(request, 'pedidos/realizar.html')
