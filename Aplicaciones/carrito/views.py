@@ -139,3 +139,6 @@ def detalle_carrito(request):
         context['carrito'] = carrito_sesion
 
     return render(request, 'carrito/detalleCarrito.html', context)
+
+#Definimos la funcion
+def eliminar_del_carrito(request, id):
