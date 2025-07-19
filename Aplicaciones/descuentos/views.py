@@ -31,3 +31,12 @@ def nuevo_descuento(request):
             descuento_activo.save()
             messages.success(request, 'Descuento actualizado correctamente')
 
+        #Crear nuevo descuento si no hay uno activo
+        else:
+            Descuento.objects.create(
+                producto_id=producto_id,
+                porcentaje_descuento=porcentaje,
+                fecha_inicio=fecha_inicio,
+                fecha_fin=fecha_fin
+            )
+
