@@ -122,3 +122,7 @@ def capture_order(request):
 
     else:
         return JsonResponse({'error': 'Método no permitido'}, status=405)
+    
+#definimos la funcio gracias para redirigir a una pagina por su pago
+def gracias(request):
+    return render(request, 'pedidos/gracias.html')
