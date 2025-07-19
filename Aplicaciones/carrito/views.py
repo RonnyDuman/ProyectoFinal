@@ -86,3 +86,11 @@ def detalle_carrito(request):
         if carrito_db:
             items_db = carrito_db.productos_en_carrito.select_related('producto')
 
+    
+    #Se crea un diccionario context que se enviará a la plantilla HTML (detalleCarrito.html)
+    context = {
+        'items_db': None,
+        'carrito': carrito_sesion,
+        'subtotal': 0,
+        'total': 0,
+    }
