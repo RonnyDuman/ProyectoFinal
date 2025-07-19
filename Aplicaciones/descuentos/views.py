@@ -23,4 +23,11 @@ def nuevo_descuento(request):
             fecha_fin__gte=hoy
         ).first()
 
-        
+        #Actualizamos el descuento si ya existe
+        if descuento_activo:
+            descuento_activo.porcentaje_descuento = porcentaje
+            descuento_activo.fecha_inicio = fecha_inicio
+            descuento_activo.fecha_fin = fecha_fin
+            descuento_activo.save()
+            messages.success(request, 'Descuento actualizado correctamente')
+
