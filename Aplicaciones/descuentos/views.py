@@ -4,6 +4,9 @@ from django.contrib import messages
 from Aplicaciones.productos.models import Producto
 from Aplicaciones.descuentos.models import Descuento
 from django.utils import timezone
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib import messages
+from Aplicaciones.descuentos.models import Descuento
 
 # Create your views here.
 
@@ -45,4 +48,7 @@ def nuevo_descuento(request):
         return redirect('admin_descuentos')
 
     return render(request, 'descuentos/nuevo.html', {'productos': productos})
+
+def editar_descuento(request, descuento_id):
+    descuento = get_object_or_404(Descuento, id=descuento_id)
 
