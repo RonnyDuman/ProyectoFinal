@@ -7,4 +7,5 @@ from django.utils import timezone
 
 # Create your views here.
 
-
+def nuevo_descuento(request):
+    productos = Producto.objects.all()
