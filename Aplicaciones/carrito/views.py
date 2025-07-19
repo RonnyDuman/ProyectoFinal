@@ -22,3 +22,6 @@ def agregar_al_carrito(request, id):
         precio_descuento = precio * (Decimal('1') - porcentaje_descuento / Decimal('100'))
     else:
         precio_descuento = precio
+
+    #Verificamos si el usuario esta logeado
+    usuario_id = request.session.get('usuario_id')
