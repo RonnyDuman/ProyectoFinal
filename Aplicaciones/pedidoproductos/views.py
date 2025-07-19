@@ -97,3 +97,11 @@ def realizar_compra_ejecutar(request):
              # Simular reducción de stock
             producto.stock -= item['cantidad']
             producto.save()
+
+              # 3. Crear el pago pendiente
+        Pago.objects.create(
+            pedido=pedido,
+            monto=total,
+            metodo_pago=metodo_pago,
+            estado_pago='pendiente'
+        )
