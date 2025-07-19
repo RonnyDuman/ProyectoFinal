@@ -55,3 +55,9 @@ def pago_paypal_simulado(request, pedido_id):
 @csrf_exempt
 #definimos la funcion 
 def capture_order(request):
+    #Convierte el contenido JSON recibido del frontend en un diccionario Python.
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            usuario_id = request.session.get('usuario_id')
+            metodo_pago = data.get('metodo_pago', 'paypal')  # Captura del frontend
