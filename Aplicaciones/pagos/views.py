@@ -102,3 +102,7 @@ def capture_order(request):
             carrito.estado = 'pagado'
             carrito.save()
             productos_en_carrito.delete()
+
+            # Vaciar carrito en sesión
+            if 'carrito' in request.session:
+                del request.session['carrito']
