@@ -106,3 +106,11 @@ def capture_order(request):
             # Vaciar carrito en sesión
             if 'carrito' in request.session:
                 del request.session['carrito']
+
+            #Registrar el pago
+            Pago.objects.create(
+                pedido=pedido,
+                monto=total,
+                metodo_pago=metodo_pago,
+                estado_pago='completado'  # asumes éxito si llega a esta parte
+            )
