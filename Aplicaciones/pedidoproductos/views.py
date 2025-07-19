@@ -37,3 +37,13 @@ def realizar_compra(request):
     if carrito_db:
         # Obtener los productos y cantidades del carrito en BD
         items = carrito_db.productos_en_carrito.select_related('producto').all()
+
+     # Armar un diccionario tipo sesión para reutilizar lógica o templates
+        carrito = {}
+        for item in items:
+            carrito[str(item.producto.id)] = {
+                'nombre': item.producto.nombre,
+                'precio_descuento': float(item.precio_unitario),  # ajusta si tienes campo descuento
+                'cantidad': item.cantidad,
+                'total': float(item.subtotal()),
+            }
