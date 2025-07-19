@@ -149,3 +149,6 @@ def eliminar_del_carrito(request, id):
         request.session['carrito'] = carrito
 
     return redirect('detalle_carrito')
+
+#Definimos la funcio
+def eliminar_del_carrito_db(request, item_id):
