@@ -18,3 +18,8 @@ def carrito_total_items(request):
     #Busca el carrito activo del usuario en la base de datos
     if usuario_id:
         carrito = Carrito.objects.filter(usuario_id=usuario_id, estado='activo').first()
+
+        if carrito:
+            total_items = CarritoProducto.objects.filter(carrito=carrito).aggregate(
+                total=Sum('cantidad')
+            )['total'] or 0
