@@ -150,5 +150,9 @@ def eliminar_del_carrito(request, id):
 
     return redirect('detalle_carrito')
 
-#Definimos la funcio
+#Definimos la funcion
 def eliminar_del_carrito_db(request, item_id):
+    #Elimina un producto del carrito guardado en la base de datos, es decir, de un usuario autenticado.
+    item = get_object_or_404(CarritoProducto, id=item_id)
+    item.delete()
+    return redirect('detalle_carrito')
