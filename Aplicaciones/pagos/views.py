@@ -61,3 +61,26 @@ def capture_order(request):
             data = json.loads(request.body)
             usuario_id = request.session.get('usuario_id')
             metodo_pago = data.get('metodo_pago', 'paypal')  # Captura del frontend
+
+            
+            if not usuario_id:
+                return JsonResponse({'error': 'Usuario no autenticado'}, status=401)
+
+            carrito = Carrito.objects.filter(usuario_id=usuario_id, estado='activo').first()
+            if not carrito:
+                return JsonResponse({'error': 'No hay carrito activo'}, status=404)
+
+            productos_en_carrito = CarritoProducto.objects.filter(carrito=carrito).select_related('producto')
+            if not productos_en_carrito.exists():
+                return JsonResponse({'error': 'Carrito vacío'}, status=400)
+
+            total = sum(item.cantidad * item.precio_unitario for item in productos_en_carrito)
+
+         # Crear Pedido
+            pedido = Pedido.objects.create(
+                usuario_id=usuario_id,
+                fecha_pedido=timezone.now(),
+                total=total,
+                estado_pedido='pendiente',
+                direccion_envio=carrito.usuario.direccion or 'Dirección no registrada'
+            )
