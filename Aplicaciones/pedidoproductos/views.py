@@ -105,3 +105,8 @@ def realizar_compra_ejecutar(request):
             metodo_pago=metodo_pago,
             estado_pago='pendiente'
         )
+
+        
+        # 4. Vaciar carrito
+        del request.session['carrito']
+        request.session.modified = True
