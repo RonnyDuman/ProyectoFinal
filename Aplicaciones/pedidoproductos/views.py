@@ -29,3 +29,6 @@ def realizar_compra(request):
     
      # Traer usuario desde sesión del manual
     usuario = Usuario.objects.get(id=usuario_id)
+
+    # Luego continua igual
+    carrito_db = Carrito.objects.filter(usuario=usuario, estado='activo').first()
