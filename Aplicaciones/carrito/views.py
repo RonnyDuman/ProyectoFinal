@@ -67,4 +67,11 @@ def agregar_al_carrito(request, id):
         carrito[prod_id]['total'] = round(
             carrito[prod_id]['precio_descuento'] * carrito[prod_id]['cantidad'], 2
         )
+        request.session['carrito'] = carrito
+        request.session.modified = True  
+
+    return redirect('detalle_producto', producto_id=id)
+
+#Creamos la función
+def detalle_carrito(request):
 
