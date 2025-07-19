@@ -11,3 +11,6 @@ def carrito_context(request):
 
 #Definimos la funcion 
 def carrito_total_items(request):
+    #Obtenemos el ID del usuario desde la sesión
+    usuario_id = request.session.get('usuario_id')
+    total_items = 0
