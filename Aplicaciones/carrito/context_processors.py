@@ -23,3 +23,9 @@ def carrito_total_items(request):
             total_items = CarritoProducto.objects.filter(carrito=carrito).aggregate(
                 total=Sum('cantidad')
             )['total'] or 0
+
+    else:
+        carrito_sesion = request.session.get('carrito', {})
+        total_items = sum(item['cantidad'] for item in carrito_sesion.values())
+
+    return {'total_items_carrito': total_items}
