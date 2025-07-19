@@ -71,7 +71,9 @@ def realizar_compra_ejecutar(request):
     #Obtiene el usuario actualmente logueado
     usuario = request.user
 
-     
     carrito = request.session.get('carrito', {})
     if not carrito:
         return redirect('detalle_carrito')  # o mostrar mensaje
+    
+      # Calcular total
+        total = sum(item['precio_descuento'] * item['cantidad'] for item in carrito.values())
