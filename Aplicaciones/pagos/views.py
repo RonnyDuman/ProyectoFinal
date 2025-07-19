@@ -97,3 +97,8 @@ def capture_order(request):
                     cantidad=item.cantidad,
                     precio_unitario=item.precio_unitario
                 )
+
+            # Cambiar estado del carrito a pagado
+            carrito.estado = 'pagado'
+            carrito.save()
+            productos_en_carrito.delete()
