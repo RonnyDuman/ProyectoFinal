@@ -159,3 +159,13 @@ def eliminar_del_carrito_db(request, item_id):
 
 #Creamos la funcion
 def vaciar_carrito(request):
+     #Elimina todos los productos del carrito, tanto en la sesión como en la base de datos (si el usuario está autenticado).
+    request.session['carrito'] = {}
+
+    usuario_id = request.session.get('usuario_id')
+    if usuario_id:
+        carrito = Carrito.objects.filter(usuario_id=usuario_id, estado='activo').first()
+        if carrito:
+            CarritoProducto.objects.filter(carrito=carrito).delete()
+
+    return redirect('detalle_carrito')
