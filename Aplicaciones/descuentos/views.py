@@ -9,3 +9,8 @@ from django.utils import timezone
 
 def nuevo_descuento(request):
     productos = Producto.objects.all()
+    if request.method == 'POST':
+        producto_id = request.POST.get('producto')
+        porcentaje = request.POST.get('porcentaje_descuento')
+        fecha_inicio = request.POST.get('fecha_inicio')
+        fecha_fin = request.POST.get('fecha_fin')
