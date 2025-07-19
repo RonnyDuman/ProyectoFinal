@@ -25,3 +25,9 @@ def agregar_al_carrito(request, id):
 
     #Verificamos si el usuario esta logeado
     usuario_id = request.session.get('usuario_id')
+
+    
+    #Si el usuario esta logeado se guarda en la BDD
+    if usuario_id:
+        usuario = Usuario.objects.get(id=usuario_id)
+        carrito_db, created = Carrito.objects.get_or_create(usuario=usuario, estado='activo')
