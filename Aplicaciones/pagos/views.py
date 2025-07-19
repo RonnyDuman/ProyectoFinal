@@ -50,3 +50,6 @@ def pago_paypal_simulado(request, pedido_id):
         'pedido': pedido,
         'pago': pago
     })
+
+#Permite que la función acepte solicitudes sin token CSRF
+@csrf_exempt
