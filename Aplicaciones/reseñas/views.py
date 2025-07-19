@@ -9,3 +9,7 @@ from django.contrib import messages
 
 #Definimos la funcion
 def agregar_reseña(request, producto_id):
+     #Verifica si el usuario está autenticado mediante session. Si no lo está, lo redirige al login y muestra un mensaje de error.
+    if not request.session.get('usuario_id'):
+        messages.error(request, "Debes iniciar sesión para dejar una reseña.")
+        return redirect('login')
