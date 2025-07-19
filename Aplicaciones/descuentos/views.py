@@ -58,3 +58,9 @@ def editar_descuento(request, descuento_id):
         porcentaje = request.POST.get('porcentaje_descuento')
         fecha_inicio = request.POST.get('fecha_inicio')
         fecha_fin = request.POST.get('fecha_fin')
+
+        #Se actualizan los campos del descuento:
+        descuento.porcentaje_descuento = porcentaje
+        descuento.fecha_inicio = fecha_inicio
+        descuento.fecha_fin = fecha_fin
+        descuento.save()
