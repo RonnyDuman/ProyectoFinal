@@ -23,3 +23,9 @@ from Aplicaciones.usuarios.models import Usuario
 
 #definimos la funcion
 def realizar_compra(request):
+    usuario_id = request.session.get('usuario_id')
+    if not usuario_id:
+        return redirect('login')
+    
+     # Traer usuario desde sesión del manual
+    usuario = Usuario.objects.get(id=usuario_id)
