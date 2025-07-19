@@ -102,3 +102,11 @@ def detalle_carrito(request):
         for item in items_db:
             precio_original = item.producto.precio
             precio_unitario = item.precio_unitario
+
+              #Se calcula el porcentaje de descuento aplicado y luego se calcula el subtotal de cada producto
+            if precio_original > precio_unitario:
+                porcentaje_descuento = round(float((precio_original - precio_unitario) / precio_original * 100), 2)
+            else:
+                porcentaje_descuento = 0
+            subtotal_item = item.subtotal()
+            subtotal += subtotal_item
