@@ -40,3 +40,9 @@ def nuevo_descuento(request):
                 fecha_fin=fecha_fin
             )
 
+            messages.success(request, 'Descuento creado correctamente')
+
+        return redirect('admin_descuentos')
+
+    return render(request, 'descuentos/nuevo.html', {'productos': productos})
+
