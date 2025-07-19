@@ -122,7 +122,20 @@ def detalle_carrito(request):
                 'porcentaje_descuento': porcentaje_descuento,
             })
 
-             #Actualizamos el metodo context
+        #Actualizamos el metodo context
         context['items_db'] = items_con_descuento
         context['subtotal'] = subtotal
         context['total'] = subtotal
+
+           #Si no hay items_db pero sí hay carrito_sesion, se actualiza también el context
+    elif carrito_sesion:
+        subtotal = 0
+        for key, item in carrito_sesion.items():
+            if 'total' not in item:
+                item['total'] = item['precio_descuento'] * item['cantidad']
+            subtotal += item['total']
+        context['subtotal'] = subtotal
+        context['total'] = subtotal
+        context['carrito'] = carrito_sesion
+
+    return render(request, 'carrito/detalleCarrito.html', context)
