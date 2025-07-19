@@ -7,3 +7,6 @@ from Aplicaciones.pagos.models import Pago
 from Aplicaciones.productos.models import Producto
 
 # Create your views here.
+
+#Esta funcion hace que solo usuarios logueados pueden acceder
+@login_required
