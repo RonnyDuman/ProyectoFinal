@@ -31,3 +31,13 @@ def agregar_al_carrito(request, id):
     if usuario_id:
         usuario = Usuario.objects.get(id=usuario_id)
         carrito_db, created = Carrito.objects.get_or_create(usuario=usuario, estado='activo')
+
+        #Busca un carrito activo o lo crea si no existe.
+        item_db, creado = CarritoProducto.objects.get_or_create(
+            carrito=carrito_db,
+            producto=producto,
+            defaults={
+                'cantidad': 1,
+                'precio_unitario': precio_descuento
+            }
+        )
