@@ -114,3 +114,11 @@ def capture_order(request):
                 metodo_pago=metodo_pago,
                 estado_pago='completado'  # asumes éxito si llega a esta parte
             )
+            #Devuelve la respuesta al Frontend
+            return JsonResponse({'status': 'success', 'pedido_id': pedido.id})
+
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+
+    else:
+        return JsonResponse({'error': 'Método no permitido'}, status=405)
