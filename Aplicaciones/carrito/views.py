@@ -142,3 +142,10 @@ def detalle_carrito(request):
 
 #Definimos la funcion
 def eliminar_del_carrito(request, id):
+    #Elimina un producto del carrito guardado en sesión (es decir, para usuarios que no han iniciado sesión).
+    carrito = request.session.get('carrito', {})
+    if id in carrito:
+        del carrito[id]
+        request.session['carrito'] = carrito
+
+    return redirect('detalle_carrito')
