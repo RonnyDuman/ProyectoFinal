@@ -47,3 +47,6 @@ def realizar_compra(request):
                 'cantidad': item.cantidad,
                 'total': float(item.subtotal()),
             }
+        else:
+        # Si no hay carrito en BD, intentar obtener de sesión
+            carrito = request.session.get('carrito', {})
