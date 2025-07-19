@@ -14,3 +14,13 @@ def nuevo_descuento(request):
         porcentaje = request.POST.get('porcentaje_descuento')
         fecha_inicio = request.POST.get('fecha_inicio')
         fecha_fin = request.POST.get('fecha_fin')
+
+        #Verificamos si ya existe un descuento activo
+        hoy = timezone.now().date()
+        descuento_activo = Descuento.objects.filter(
+            producto_id=producto_id,
+            fecha_inicio__lte=hoy,
+            fecha_fin__gte=hoy
+        ).first()
+
+        
