@@ -50,3 +50,17 @@ def agregar_al_carrito(request, id):
     else:
         carrito = request.session.get('carrito', {})
         prod_id = str(producto.id)
+
+        #Usa un diccionario llamado 'carrito' en la sesión del navegador.
+        if prod_id in carrito:
+            carrito[prod_id]['cantidad'] += 1
+        else:
+            carrito[prod_id] = {
+                'nombre': producto.nombre,
+                'precio': float(precio),
+                'precio_descuento': float(round(precio_descuento, 2)),
+                'porcentaje_descuento': float(porcentaje_descuento),
+                'cantidad': 1,
+                'imagen': producto.imagen.url if producto.imagen else '',
+            }
+
