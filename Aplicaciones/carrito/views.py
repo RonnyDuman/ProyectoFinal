@@ -41,3 +41,12 @@ def agregar_al_carrito(request, id):
                 'precio_unitario': precio_descuento
             }
         )
+        #Añade el producto con cantidad 1 si no existe,si ya existe, le aumenta 1 en la cantidad:
+        if not creado:
+            item_db.cantidad += 1
+            item_db.save()
+
+    #Si el usuario no esta logeado igual se refleja el carrito 
+    else:
+        carrito = request.session.get('carrito', {})
+        prod_id = str(producto.id)
