@@ -32,3 +32,11 @@ def pago_paypal_simulado(request, pedido_id):
 
         pedido.estado_pedido = 'enviado'  # o pendiente de envío
         pedido.save()
+
+        #redirigimos a la pagina de confirmacion
+        return redirect('pedido_confirmado', pedido_id=pedido.id)
+    #Si el método no es POST (es decir, cuando el usuario entra por primera vez a esta vista), se muestra la plantilla HTML de pago simulado.
+    return render(request, 'pagos/paypal_simulado.html', {
+        'pedido': pedido,
+        'pago': pago
+    })
