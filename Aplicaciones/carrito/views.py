@@ -74,4 +74,9 @@ def agregar_al_carrito(request, id):
 
 #Creamos la función
 def detalle_carrito(request):
+    #Obtemos los datos del carrito
+    usuario_id = request.session.get('usuario_id')
+    carrito_db = None
+    items_db = None
+    carrito_sesion = request.session.get('carrito', {})
 
