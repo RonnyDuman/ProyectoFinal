@@ -19,3 +19,7 @@ from Aplicaciones.carrito.models import Carrito
 from Aplicaciones.productos.models import Producto
 from Aplicaciones.usuarios.models import Usuario
 # Create your views here.
+
+
+#definimos la funcion
+def realizar_compra(request):
