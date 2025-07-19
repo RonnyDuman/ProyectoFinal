@@ -77,3 +77,11 @@ def realizar_compra_ejecutar(request):
     
       # Calcular total
         total = sum(item['precio_descuento'] * item['cantidad'] for item in carrito.values())
+
+            # 1. Crear el pedido
+        pedido = Pedido.objects.create(
+            usuario=usuario,
+            total=total,
+            direccion_envio=direccion,
+            estado_pedido='pendiente'
+        )
