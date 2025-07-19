@@ -68,3 +68,11 @@ def editar_descuento(request, descuento_id):
         #Agregamos mensajes de confirmacion
         messages.success(request, 'Descuento actualizado correctamente')
         return redirect('admin_descuentos')
+    
+     # Mostrar informacion
+    porcentaje_entero = int(descuento.porcentaje_descuento)
+    return render(request, 'descuentos/editar.html', {
+        'descuento': descuento,
+        'porcentaje_entero': porcentaje_entero,
+    })
+
