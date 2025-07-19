@@ -64,3 +64,7 @@ def realizar_compra(request):
     }
 
     return render(request, 'pedidos/realizar.html', context)
+
+
+#definimos la funcion
+def realizar_compra_ejecutar(request):
