@@ -94,3 +94,6 @@ def realizar_compra_ejecutar(request):
                 cantidad=item['cantidad'],
                 precio_unitario=item['precio_descuento']
             )
+             # Simular reducción de stock
+            producto.stock -= item['cantidad']
+            producto.save()
