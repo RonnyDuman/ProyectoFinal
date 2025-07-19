@@ -14,3 +14,7 @@ def carrito_total_items(request):
     #Obtenemos el ID del usuario desde la sesión
     usuario_id = request.session.get('usuario_id')
     total_items = 0
+
+    #Busca el carrito activo del usuario en la base de datos
+    if usuario_id:
+        carrito = Carrito.objects.filter(usuario_id=usuario_id, estado='activo').first()
