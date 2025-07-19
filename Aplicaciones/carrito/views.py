@@ -110,6 +110,7 @@ def detalle_carrito(request):
                 porcentaje_descuento = 0
             subtotal_item = item.subtotal()
             subtotal += subtotal_item
+
             #Se guarda en una lista todos los detalles del producto
             items_con_descuento.append({
                 'id': item.id,
@@ -120,3 +121,8 @@ def detalle_carrito(request):
                 'subtotal': subtotal_item,
                 'porcentaje_descuento': porcentaje_descuento,
             })
+
+             #Actualizamos el metodo context
+        context['items_db'] = items_con_descuento
+        context['subtotal'] = subtotal
+        context['total'] = subtotal
