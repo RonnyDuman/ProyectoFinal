@@ -13,3 +13,12 @@ def agregar_al_carrito(request, id):
     #Verificar si tiene descuento
     descuento_obj = Descuento.objects.filter(producto=producto).first()
     porcentaje_descuento = descuento_obj.porcentaje_descuento if descuento_obj else Decimal('0')
+
+    #Calcular el precio con descuento
+    precio = Decimal(producto.precio)
+    porcentaje_descuento = Decimal(porcentaje_descuento)
+
+    if porcentaje_descuento > 0:
+        precio_descuento = precio * (Decimal('1') - porcentaje_descuento / Decimal('100'))
+    else:
+        precio_descuento = precio
