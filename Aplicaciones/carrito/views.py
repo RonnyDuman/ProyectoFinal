@@ -94,3 +94,11 @@ def detalle_carrito(request):
         'subtotal': 0,
         'total': 0,
     }
+
+    #Si hay items_db,para cada producto del carrito:
+    if items_db:
+        items_con_descuento = []
+        subtotal = 0
+        for item in items_db:
+            precio_original = item.producto.precio
+            precio_unitario = item.precio_unitario
