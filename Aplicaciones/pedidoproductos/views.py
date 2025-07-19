@@ -85,3 +85,12 @@ def realizar_compra_ejecutar(request):
             direccion_envio=direccion,
             estado_pedido='pendiente'
         )
+         # 2. Crear los items
+        for item in carrito.values():
+            producto = Producto.objects.get(nombre=item['nombre'])
+            PedidoProducto.objects.create(
+                pedido=pedido,
+                producto=producto,
+                cantidad=item['cantidad'],
+                precio_unitario=item['precio_descuento']
+            )
