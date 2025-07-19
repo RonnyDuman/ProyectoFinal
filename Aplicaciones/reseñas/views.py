@@ -6,3 +6,6 @@ from Aplicaciones.reseñas.models import Reseña
 from Aplicaciones.usuarios.models import Usuario
 from django.contrib import messages
 # Create your views here.
+
+#Definimos la funcion
+def agregar_reseña(request, producto_id):
