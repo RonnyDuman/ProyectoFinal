@@ -110,3 +110,13 @@ def detalle_carrito(request):
                 porcentaje_descuento = 0
             subtotal_item = item.subtotal()
             subtotal += subtotal_item
+            #Se guarda en una lista todos los detalles del producto
+            items_con_descuento.append({
+                'id': item.id,
+                'producto': item.producto,
+                'cantidad': item.cantidad,
+                'precio_unitario': precio_unitario,
+                'precio_original': precio_original,
+                'subtotal': subtotal_item,
+                'porcentaje_descuento': porcentaje_descuento,
+            })
